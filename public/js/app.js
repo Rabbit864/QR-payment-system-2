@@ -1945,6 +1945,48 @@ var routes = [{
 
 /***/ }),
 
+/***/ "./resources/js/Store/cart.js":
+/*!************************************!*\
+  !*** ./resources/js/Store/cart.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: {
+    cart: []
+  },
+  mutations: {
+    addToCart: function addToCart(state, item) {
+      var found = state.cart.find(function (product) {
+        return product.id == item.id;
+      });
+
+      if (found) {
+        found.quantity++;
+        found.totalPrice = found.quantity * found.cost;
+      } else {
+        state.cart.push(item);
+        vue__WEBPACK_IMPORTED_MODULE_0__.default.set(item, 'quantity', 1);
+        vue__WEBPACK_IMPORTED_MODULE_0__.default.set(item, 'totalPrice', item.cost);
+      }
+    },
+    clearCart: function clearCart(state) {
+      state.cart = [];
+    }
+  },
+  actions: {},
+  getters: {}
+});
+
+/***/ }),
+
 /***/ "./resources/js/Store/index.js":
 /*!*************************************!*\
   !*** ./resources/js/Store/index.js ***!
@@ -1956,17 +1998,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
+/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cart */ "./resources/js/Store/cart.js");
+/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
+
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vuex__WEBPACK_IMPORTED_MODULE_4__.default);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_4__.default.Store({
   state: {
     user: null,
     token: null
@@ -2018,7 +2062,10 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.d
       return !!state.token;
     }
   },
-  plugins: [(0,vuex_persistedstate__WEBPACK_IMPORTED_MODULE_1__.default)()]
+  plugins: [(0,vuex_persistedstate__WEBPACK_IMPORTED_MODULE_2__.default)()],
+  modules: {
+    cart: _cart__WEBPACK_IMPORTED_MODULE_1__.default
+  }
 }));
 
 /***/ }),

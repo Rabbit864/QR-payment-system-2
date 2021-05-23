@@ -37,6 +37,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _GooglePay_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GooglePay.vue */ "./resources/js/Pages/GooglePay.vue");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -64,10 +92,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      name: "",
-      cost: "",
-      description: "",
-      image: ""
+      product: {
+        name: "",
+        cost: "",
+        description: "",
+        image: "",
+        id: ""
+      }
     };
   },
   methods: {
@@ -77,11 +108,36 @@ __webpack_require__.r(__webpack_exports__);
       var url = "api/products/".concat(this.$route.params.id);
       axios.get(url).then(function (response) {
         var product = response.data;
-        _this.name = product.name;
-        _this.cost = product.cost;
-        _this.description = product.description;
-        _this.image = product.image;
+        _this.product.id = product.id;
+        _this.product.name = product.name;
+        _this.product.cost = product.cost;
+        _this.product.description = product.description;
+        _this.product.image = product.image;
       })["catch"](function () {});
+    },
+    addToCart: function addToCart(product) {
+      this.$store.commit("addToCart", product);
+    }
+  },
+  computed: {
+    totalPrice: function totalPrice() {
+      var total = 0;
+
+      var _iterator = _createForOfIteratorHelper(this.$store.state.cart.cart),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var item = _step.value;
+          total += item.totalPrice;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return total.toFixed(2);
     }
   },
   created: function created() {
@@ -105,6 +161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _google_pay_button_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @google-pay/button-element */ "./node_modules/@google-pay/button-element/dist/index.umd.min.js");
 /* harmony import */ var _google_pay_button_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_google_pay_button_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Router_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Router/index */ "./resources/js/Router/index.js");
+/* harmony import */ var _Store_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Store/index */ "./resources/js/Store/index.js");
 //
 //
 //
@@ -131,6 +188,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -155,8 +213,8 @@ __webpack_require__.r(__webpack_exports__);
           tokenizationSpecification: {
             type: "PAYMENT_GATEWAY",
             parameters: {
-              gateway: "sberbank",
-              gatewayMerchantId: "8a9ffc8b-7427-4377-97d2-702a2c6d098b"
+              gateway: "example",
+              gatewayMerchantId: "exampleGatewayMerchantId"
             }
           }
         }],
@@ -170,6 +228,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onLoadPaymentData: function onLoadPaymentData(event) {
       console.log("load payment data", event.detail);
+      _Store_index__WEBPACK_IMPORTED_MODULE_2__.default.commit("clearCart");
       _Router_index__WEBPACK_IMPORTED_MODULE_1__.default.push("/paySaccess");
     },
     onError: function onError(event) {
@@ -354,36 +413,99 @@ var render = function() {
         "v-card",
         { staticClass: "mx-auto my-12", attrs: { "max-width": "374" } },
         [
-          _c("v-img", { attrs: { height: "250", src: "" + this.image } }),
+          _c("v-img", {
+            attrs: { height: "250", src: "" + _vm.product.image }
+          }),
           _vm._v(" "),
           _c("v-card-title", [
             _c("div", { staticClass: "font-weight-black" }, [
-              _vm._v(_vm._s(this.name))
+              _vm._v(_vm._s(_vm.product.name))
             ])
           ]),
           _vm._v(" "),
           _c("v-card-title", [
-            _c("div", [_vm._v("Стоимость: " + _vm._s(this.cost))])
+            _c("div", [_vm._v("Стоимость: " + _vm._s(_vm.product.cost))])
           ]),
           _vm._v(" "),
           _c("v-card-text", [
             _c("div", { staticClass: "text-left" }, [
-              _vm._v("Описание: " + _vm._s(this.description))
+              _vm._v("Описание: " + _vm._s(_vm.product.description))
             ])
           ]),
           _vm._v(" "),
-          _c("GooglePay", { attrs: { cost: "" + this.cost } }),
+          _vm.$store.state.cart.cart.length === 0
+            ? _c("GooglePay", {
+                attrs: {
+                  cost:
+                    "" +
+                    (_vm.$store.state.cart.cart.length === 0
+                      ? _vm.product.cost
+                      : _vm.totalPrice)
+                }
+              })
+            : _vm._e(),
           _vm._v(" "),
           _c("div"),
           _vm._v(" "),
           _c(
             "v-btn",
-            { staticClass: "white--text mb-2", attrs: { color: "black" } },
+            {
+              staticClass: "white--text mb-2",
+              attrs: { color: "black" },
+              on: {
+                click: function($event) {
+                  return _vm.addToCart(_vm.product)
+                }
+              }
+            },
             [_vm._v("В корзину")]
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _vm.$store.state.cart.cart.length > 0
+        ? _c(
+            "v-card",
+            { staticClass: "mx-auto my-12", attrs: { "max-width": "374" } },
+            [
+              _c("v-card-title", [_vm._v(" Ваша корзина ")]),
+              _vm._v(" "),
+              _c("v-simple-table", { staticClass: "products mt-3" }, [
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", { staticClass: "text-center" }, [
+                      _vm._v("Название")
+                    ]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "text-center" }, [
+                      _vm._v("Количество")
+                    ]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "text-center" }, [_vm._v("Сумма")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.$store.state.cart.cart, function(item) {
+                    return _c("tr", { key: item.id }, [
+                      _c("td", [_vm._v(_vm._s(item.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.quantity))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.totalPrice))])
+                    ])
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _c("GooglePay", { attrs: { cost: "" + _vm.totalPrice } })
+            ],
+            1
+          )
+        : _vm._e()
     ],
     1
   )

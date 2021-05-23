@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import cart from './cart';
 import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
@@ -48,5 +49,8 @@ export default new Vuex.Store({
     getters: {
         isLoggedIn: state => !!state.token,
     },
-    plugins: [createPersistedState()]
+    plugins: [createPersistedState()],
+    modules: {
+        cart
+    }
 });

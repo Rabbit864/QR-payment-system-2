@@ -27,6 +27,7 @@
 <script>
 import "@google-pay/button-element";
 import router from '../Router/index';
+import store from '../Store/index';
 export default {
   name: "GooglePay",
   props: {
@@ -50,8 +51,8 @@ export default {
             tokenizationSpecification: {
               type: "PAYMENT_GATEWAY",
               parameters: {
-                gateway: "sberbank",
-                gatewayMerchantId: "8a9ffc8b-7427-4377-97d2-702a2c6d098b",
+                gateway: "example",
+                gatewayMerchantId: "exampleGatewayMerchantId",
               },
             },
           },
@@ -66,6 +67,7 @@ export default {
   methods: {
     onLoadPaymentData: (event) => {
       console.log("load payment data", event.detail);
+      store.commit("clearCart");
       router.push("/paySaccess");
     },
     onError: (event) => {
