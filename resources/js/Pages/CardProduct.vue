@@ -11,16 +11,17 @@
       <v-card-text>
         <div class="text-left">Описание: {{ this.description }}</div>
       </v-card-text>
-      <v-container class="d-flex justify-space-between">
-          <v-btn color="black" class="white--text">Оплатить</v-btn>
-          <v-btn color="black" class="white--text">В корзину</v-btn>
-      </v-container>
+       <GooglePay :cost="`${this.cost}`" />
+       <div></div>
+       <v-btn color="black" class="white--text">В корзину</v-btn>
     </v-card>
   </div>
 </template>
 
 <script>
+import GooglePay from "./GooglePay.vue";
 export default {
+  components: { GooglePay },
   data() {
     return {
       name: "",
@@ -49,4 +50,5 @@ export default {
   },
 };
 </script>
+
 

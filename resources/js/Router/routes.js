@@ -34,6 +34,11 @@ const routes = [
         component: () => import('../Pages/CardProduct.vue'),
         name: 'cardProduct',
         //beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/paySaccess',
+        component: () => import('../Pages/SuccessPay.vue'),
+        name: 'SuccessPay',
     }
 ];
 
