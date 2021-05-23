@@ -13,7 +13,7 @@
       </v-card-text>
        <GooglePay :cost="`${this.cost}`" />
        <div></div>
-       <v-btn color="black" class="white--text">В корзину</v-btn>
+       <v-btn color="black" class="white--text mb-2">В корзину</v-btn>
     </v-card>
   </div>
 </template>

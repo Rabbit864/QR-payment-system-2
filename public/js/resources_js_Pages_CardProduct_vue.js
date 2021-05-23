@@ -378,7 +378,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-btn",
-            { staticClass: "white--text", attrs: { color: "black" } },
+            { staticClass: "white--text mb-2", attrs: { color: "black" } },
             [_vm._v("В корзину")]
           )
         ],
