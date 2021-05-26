@@ -1977,6 +1977,20 @@ __webpack_require__.r(__webpack_exports__);
         vue__WEBPACK_IMPORTED_MODULE_0__.default.set(item, 'totalPrice', item.cost);
       }
     },
+    removeFromCart: function removeFromCart(state, item) {
+      var index = state.cart.indexOf(item);
+
+      if (index > -1) {
+        var product = state.cart[index];
+
+        if (product.quantity > 1) {
+          product.quantity--;
+          product.totalPrice = product.quantity * product.cost;
+        } else {
+          state.cart.splice(index, 1);
+        }
+      }
+    },
     clearCart: function clearCart(state) {
       state.cart = [];
     }

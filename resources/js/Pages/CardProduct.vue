@@ -11,31 +11,56 @@
       <v-card-text>
         <div class="text-left">Описание: {{ product.description }}</div>
       </v-card-text>
-      <GooglePay :cost="`${($store.state.cart.cart.length === 0) ? product.cost : totalPrice}`"  v-if="$store.state.cart.cart.length === 0"/>
+      <GooglePay
+        :cost="`${
+          $store.state.cart.cart.length === 0 ? product.cost : totalPrice
+        }`"
+        v-if="$store.state.cart.cart.length === 0"
+      />
       <div></div>
       <v-btn color="black" class="white--text mb-2" @click="addToCart(product)"
         >В корзину</v-btn
       >
     </v-card>
-    <v-card class="mx-auto my-12" max-width="374" v-if="$store.state.cart.cart.length > 0">
+    <v-card
+      class="mx-auto my-12"
+      max-width="374"
+      v-if="$store.state.cart.cart.length > 0"
+    >
       <v-card-title> Ваша корзина </v-card-title>
       <v-simple-table class="products mt-3">
-      <thead>
-        <tr>
-          <th class="text-center">Название</th>
-          <th class="text-center">Количество</th>
-          <th class="text-center">Сумма</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in $store.state.cart.cart" :key="item.id">
-          <td>{{ item.name }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.totalPrice }}</td>
-        </tr>
-      </tbody>
-    </v-simple-table>
-      <GooglePay :cost="`${totalPrice}`"  />
+        <thead>
+          <tr>
+            <th class="text-center">Название</th>
+            <th class="text-center">Количество</th>
+            <th class="text-center">Сумма</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in $store.state.cart.cart" :key="item.id">
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.totalPrice }}</td>
+            <td v-if="item.quantity === 1">
+              <button
+                class="red white--text px-3 py-2 rounded-lg"
+                @click="removeFromCart(item)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+            <td v-if="item.quantity > 1">
+              <button
+                class="red white--text px-3 py-2 rounded-lg"
+                @click="removeFromCart(item)"
+              >
+                -1
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </v-simple-table>
+      <GooglePay :cost="`${totalPrice}`" />
     </v-card>
   </div>
 </template>
@@ -72,6 +97,9 @@ export default {
     },
     addToCart(product) {
       this.$store.commit("addToCart", product);
+    },
+    removeFromCart(item) {
+      this.$store.commit("removeFromCart", item);
     },
   },
   computed: {
