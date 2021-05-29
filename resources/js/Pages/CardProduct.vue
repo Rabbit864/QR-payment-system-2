@@ -66,6 +66,7 @@
 </template>
 
 <script>
+/*global axios  */
 import GooglePay from "./GooglePay.vue";
 export default {
   components: { GooglePay },

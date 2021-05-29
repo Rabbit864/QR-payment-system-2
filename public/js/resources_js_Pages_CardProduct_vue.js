@@ -111,6 +111,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 
+/*global axios  */
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     GooglePay: _GooglePay_vue__WEBPACK_IMPORTED_MODULE_0__.default
