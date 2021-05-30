@@ -110,6 +110,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
 
 /*global axios  */
 
@@ -518,52 +522,64 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.$store.state.cart.cart, function(item) {
-                    return _c("tr", { key: item.id }, [
-                      _c("td", [_vm._v(_vm._s(item.name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.quantity))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.totalPrice))]),
-                      _vm._v(" "),
-                      item.quantity === 1
-                        ? _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "red white--text px-3 py-2 rounded-lg",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.removeFromCart(item)
+                  [
+                    _vm._l(_vm.$store.state.cart.cart, function(item) {
+                      return _c("tr", { key: item.id }, [
+                        _c("td", [_vm._v(_vm._s(item.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.quantity))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.totalPrice))]),
+                        _vm._v(" "),
+                        item.quantity === 1
+                          ? _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "red white--text px-3 py-2 rounded-lg",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.removeFromCart(item)
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-trash" })]
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      item.quantity > 1
-                        ? _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "red white--text px-3 py-2 rounded-lg",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.removeFromCart(item)
+                                },
+                                [_c("i", { staticClass: "fa fa-trash" })]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.quantity > 1
+                          ? _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "red white--text px-3 py-2 rounded-lg",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.removeFromCart(item)
+                                    }
                                   }
-                                }
-                              },
-                              [_vm._v("\n              -1\n            ")]
-                            )
-                          ])
-                        : _vm._e()
+                                },
+                                [_vm._v("\n              -1\n            ")]
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c(
+                        "td",
+                        { staticClass: "text-right", attrs: { colspan: "2" } },
+                        [_vm._v("Итог:")]
+                      ),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.totalPrice))])
                     ])
-                  }),
-                  0
+                  ],
+                  2
                 )
               ]),
               _vm._v(" "),

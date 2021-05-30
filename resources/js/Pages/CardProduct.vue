@@ -58,6 +58,10 @@
               </button>
             </td>
           </tr>
+          <tr>
+              <td colspan="2" class="text-right">Итог:</td>
+              <td>{{totalPrice}}</td>
+          </tr>
         </tbody>
       </v-simple-table>
       <GooglePay :cost="`${totalPrice}`" />
