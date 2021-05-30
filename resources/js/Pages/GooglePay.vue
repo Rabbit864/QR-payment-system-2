@@ -26,8 +26,8 @@
 
 <script>
 import "@google-pay/button-element";
-import router from '../Router/index';
-import store from '../Store/index';
+import router from "../Router/index";
+import store from "../Store/index";
 export default {
   name: "GooglePay",
   props: {
@@ -67,8 +67,9 @@ export default {
   methods: {
     onLoadPaymentData: (event) => {
       console.log("load payment data", event.detail);
+      const cart = store.state.cart.cart;
       store.commit("clearCart");
-      router.push("/paySaccess");
+      router.push({ name: "successPay", params: { cart } });
     },
     onError: (event) => {
       console.error("error", event.error);

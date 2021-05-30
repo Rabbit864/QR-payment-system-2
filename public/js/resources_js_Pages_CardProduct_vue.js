@@ -108,12 +108,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /*global axios  */
 
@@ -262,8 +256,14 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onLoadPaymentData: function onLoadPaymentData(event) {
       console.log("load payment data", event.detail);
+      var cart = _Store_index__WEBPACK_IMPORTED_MODULE_2__.default.state.cart.cart;
       _Store_index__WEBPACK_IMPORTED_MODULE_2__.default.commit("clearCart");
-      _Router_index__WEBPACK_IMPORTED_MODULE_1__.default.push("/paySaccess");
+      _Router_index__WEBPACK_IMPORTED_MODULE_1__.default.push({
+        name: "successPay",
+        params: {
+          cart: cart
+        }
+      });
     },
     onError: function onError(event) {
       console.error("error", event.error);
@@ -466,18 +466,6 @@ var render = function() {
               _vm._v("Описание: " + _vm._s(_vm.product.description))
             ])
           ]),
-          _vm._v(" "),
-          _vm.$store.state.cart.cart.length === 0
-            ? _c("GooglePay", {
-                attrs: {
-                  cost:
-                    "" +
-                    (_vm.$store.state.cart.cart.length === 0
-                      ? _vm.product.cost
-                      : _vm.totalPrice)
-                }
-              })
-            : _vm._e(),
           _vm._v(" "),
           _c("div"),
           _vm._v(" "),

@@ -1901,7 +1901,7 @@ var routes = [{
   component: function component() {
     return __webpack_require__.e(/*! import() */ "resources_js_Pages_SuccessPay_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../Pages/SuccessPay.vue */ "./resources/js/Pages/SuccessPay.vue"));
   },
-  name: 'SuccessPay'
+  name: 'successPay'
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (routes);
 

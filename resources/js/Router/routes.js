@@ -29,7 +29,7 @@ const routes = [
     {
         path: '/paySaccess',
         component: () => import('../Pages/SuccessPay.vue'),
-        name: 'SuccessPay',
+        name: 'successPay'
     }
 ];
 

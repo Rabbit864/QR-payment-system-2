@@ -11,12 +11,6 @@
       <v-card-text>
         <div class="text-left">Описание: {{ product.description }}</div>
       </v-card-text>
-      <GooglePay
-        :cost="`${
-          $store.state.cart.cart.length === 0 ? product.cost : totalPrice
-        }`"
-        v-if="$store.state.cart.cart.length === 0"
-      />
       <div></div>
       <v-btn color="black" class="white--text mb-2" @click="addToCart(product)"
         >В корзину</v-btn
@@ -59,8 +53,8 @@
             </td>
           </tr>
           <tr>
-              <td colspan="2" class="text-right">Итог:</td>
-              <td>{{totalPrice}}</td>
+            <td colspan="2" class="text-right">Итог:</td>
+            <td>{{ totalPrice }}</td>
           </tr>
         </tbody>
       </v-simple-table>
