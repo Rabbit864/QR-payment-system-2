@@ -20,13 +20,13 @@
         </tr>
       </tbody>
     </v-simple-table>
-    <v-alert dense type="success">Вы успешно оплатили товар</v-alert>
+    <v-alert dense type="success" class="text-center">Вы успешно оплатили товар</v-alert>
   </div>
 </template>
 
 <script>
 export default {
-    computed: {
+  computed: {
     totalPrice() {
       let total = 0;
       for (let item of this.$route.params.cart) {

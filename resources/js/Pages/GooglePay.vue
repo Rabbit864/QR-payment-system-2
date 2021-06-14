@@ -28,6 +28,7 @@
 import "@google-pay/button-element";
 import router from "../Router/index";
 import store from "../Store/index";
+import axios from 'axios';
 export default {
   name: "GooglePay",
   props: {
@@ -68,6 +69,17 @@ export default {
     onLoadPaymentData: (event) => {
       console.log("load payment data", event.detail);
       const cart = store.state.cart.cart;
+      const url = `api/basket/update`;
+      axios
+        .put(url, {
+            cart: cart
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+      });
       store.commit("clearCart");
       router.push({ name: "successPay", params: { cart } });
     },
