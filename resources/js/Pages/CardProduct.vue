@@ -130,7 +130,7 @@ export default {
                 return element.id === this.product.id;
             });
             if (product === undefined) {
-                return false;
+                return true;
             }
             return this.product.count - product.quantity > 0;
         }
